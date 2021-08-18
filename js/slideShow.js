@@ -3,7 +3,7 @@
  *
  * General JavaScript functions library;
  * 
- * @package	    uerr-edicoes
+ * @package	    UerrEdicoes 
  * @subpackage	JavaScrips
  * @category	Public Access
  * @author	    Claudio Souza Jr. <claudio@uerr.edu.br>
@@ -27,14 +27,14 @@ $(function () {
     $.getJSON(sliderPath + "ImagesData.php", function (json) {
         for (i = counter; i < json.length; i++) {
             if (json[i].imgUrl == bookBanner) {
-                setStyles(json, i);
+                setSlider(json, i);
                 return false;
             }
         }
         // Setting default background image and starting slider;
-        setStyles(json, counter);
+        setSlider(json, counter);
         setInterval(function () {
-            setStyles(json, counter);
+            setSlider(json, counter);
             counter == json.length - 1 ? counter = 0 : counter++;
         }, 10000);
     });
@@ -44,10 +44,12 @@ $(function () {
 /**
  * Sets the background image and the background color for header and footer;
  * Changes the 'is_img' class img properties;
+ * Changes the header element click event to reference the actual book in slider;
+ * 
  * @param {String} json 
  * @param {String} counter 
  */
-function setStyles(json, counter) {
+function setSlider(json, counter) {
     var objName = json[counter].imgName;
     var objImgBookUrl = json[counter].imgBookUrl;
     // Changing header properties;
@@ -62,10 +64,12 @@ function setStyles(json, counter) {
     if(objName != '0.png'){
         $(".is_img img").attr('src',json[counter].imgDefaultUrl + 'default-logo.svg');
     }
-/*     $('#headerNavigationContainer').click(function() {
-        console.log(objImgBookUrl);
-        return true;
-    }); */
+    // Changes the header element click event;
+    if(counter > 0){
+        $('#headerNavigationContainer').click(function(){
+            goTo(json[counter].imgBookUrl);
+        });
+    }
 }
 
 /**
@@ -74,7 +78,7 @@ function setStyles(json, counter) {
  * @param {string} locale
  * @returns {void|boolean}
  */
-function go_to(locale) {
+function goTo(locale) {
     window.location = locale;
     return true;
 }
