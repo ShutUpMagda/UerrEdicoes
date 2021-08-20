@@ -22,6 +22,11 @@ class ImagesData
         return $protocol . $domainName;
     }
 
+    /**
+     * Recupera a lista de imagens do tipo '.png' em $this->dir;
+     * As imagens do tipo '.svg' não aparecem na lista;
+     * @return Array
+     */
     function getImgsList()
     {
         $images = glob($this->dir . '/*.{png}', GLOB_BRACE);
