@@ -18,7 +18,10 @@ $(function () {
     var sliderPath = base_url + "/plugins/themes/UerrEdicoes/img/slider/";
 
     // Requested url;
-    var url = window.location + '';
+    var url = window.location + ''; 
+    
+    // Requested url last segment;
+    var urlLastSeg = url.substring(url.lastIndexOf('/') + 1);
 
     // This is the initial conuter value;
     var counter = 0;
@@ -29,17 +32,17 @@ $(function () {
         for (i = counter; i < json.imgs.length; i++) {
             // Compares requested url with some img in the list to stop slider;
             if (url == json.imgs[i].imgBookUrl) {
-                setSlider(json, i);
+                setBanner(json, i);
                 return false;
             }
         }
         // Start using the default img
-        setSlider(json, counter);
+        setBanner(json, counter);
         // Otherwise, start slider;
         setInterval(function () {
             // Restarting counter, if exceeds length;
             counter == json.imgs.length - 1 ? counter = 0 : counter++;
-            setSlider(json, counter);
+            setBanner(json, counter);
         }, 10000);
 
     });
@@ -52,7 +55,7 @@ $(function () {
      * @param {String} json 
      * @param {String} counter 
      */
-    function setSlider(json, counter) {
+    function setBanner(json, counter) {
         var imgName = json.imgs[counter].imgName;
         // Hides the logo image;
         if (imgName != '0.png') {
