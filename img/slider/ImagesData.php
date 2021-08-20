@@ -71,19 +71,22 @@ class ImagesData
     function getImgsData()
     {
         $i = 0;
-        foreach ($this->getImgsList() as $path) {
-            $this->imgName = $this->getImgName($path);
+        $obj = [];
+        foreach ($this->getImgsList() as $imgPath) {
+            $this->imgName = $this->getImgName($imgPath);
+            $this->imgId = $this->getImgId($this->imgName);
             $this->imgsData[$i]['imgName'] = $this->imgName;
-            $this->imgsData[$i]['imgId'] = $this->getImgId($this->imgName);
-            $this->imgsData[$i]['imgRgb'] = $this->getImgRgb($path);
-            $this->imgsData[$i]['imgRgbContrast'] = $this->getImgRgbContrast($this->getImgRgb($path));
-            $this->imgsData[$i]['imgUrl'] = $this->getImgUrl($path);
-            $this->imgsData[$i]['imgDefaultUrl'] = $this->imgDefaultUrl;
-            $this->imgsData[$i]['imgBookUrl'] = $this->imgBookUrl.$this->imgsData[$i]['imgId'];
+            $this->imgsData[$i]['imgId'] = $this->imgId;
+            $this->imgsData[$i]['imgRgb'] = $this->getImgRgb($imgPath);
+            $this->imgsData[$i]['imgRgbContrast'] = $this->getImgRgbContrast($this->getImgRgb($imgPath));
+            $this->imgsData[$i]['imgUrl'] = $this->getImgUrl($imgPath);
+            $this->imgsData[$i]['imgBookUrl'] = $this->imgBookUrl.$this->imgId;
             $i++;
         }
+        $obj['imgDefaultUrl'] = $this->imgDefaultUrl;
+        $obj['imgs'] = $this->imgsData;
         header('Content-Type: application/json');
-        echo json_encode($this->imgsData);
+        echo json_encode($obj);
     }
 }
 $ImagesData = new ImagesData;
