@@ -5,14 +5,14 @@ class ImagesData
     public $imgName;
     public $imgId;
     public $imgsData = [];
-    public $imgDefaultUrl;
+    public $sliderPath;
     public $imgBookUrl;
 
     function __construct()
     {
         $this->dir = getcwd();
         $this->imgBookUrl = $this->getUrlAndProtocol() . '/index.php/inicio/catalog/book/';
-        $this->imgDefaultUrl = $this->getImgUrl(null);
+        $this->sliderPath = $this->getImgUrl(null);
     }
 
     function getUrlAndProtocol()
@@ -83,7 +83,7 @@ class ImagesData
             $this->imgsData[$i]['imgBookUrl'] = $this->imgBookUrl.$this->imgId;
             $i++;
         }
-        $obj['imgDefaultUrl'] = $this->imgDefaultUrl;
+        $obj['sliderPath'] = $this->sliderPath;
         $obj['imgs'] = $this->imgsData;
         header('Content-Type: application/json');
         echo json_encode($obj);

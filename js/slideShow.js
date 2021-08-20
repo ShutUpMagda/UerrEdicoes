@@ -13,21 +13,21 @@ $(function () {
     /** @global base url to system */
     var base_url = window.location.origin;
 
-    /* Remember to put 'Options +Indexes' on '.htaccess' file on sliderPath; */
+    // Remember to put 'Options +Indexes' on '.htaccess' file on sliderPath;
     var sliderPath = base_url + "/plugins/themes/UerrEdicoes/img/slider/";
 
-    /** Default background image */
+    // Using request data to define background image;
     var url = window.location + '';
     var urlSegments = url.split("/");
     var urlImgName = urlSegments[7] + '.png';
-    var bookBanner = sliderPath + urlImgName;//This is the image to the called book;
-    var counter = 0;
+    var activeBookImg = sliderPath + urlImgName;// This is the image to the requested book;
 
     // Setting specific background image;
-    $.getJSON(sliderPath + "ImagesData.php", function (json) {
+    $.getJSON(sliderPath, function (json) {
+        var counter = 0;
         for (i = counter; i < json.imgs.length; i++) {
             // Defines specific img to the called book and stops slider interval;
-            if (json.imgs[i].imgUrl == bookBanner) {
+            if (json.imgs[i].imgUrl == activeBookImg) {
                 setSlider(json, i);
                 return false;
             }
@@ -62,7 +62,7 @@ function setSlider(json, counter) {
         .css("background-color", "rgb(" + json.imgs[counter].imgRgb + ")");
     // Hides the logo image;
     if(objName != '0.png'){
-        $(".is_img img").attr('src',json.imgDefaultUrl + 'default-logo.svg');
+        $(".is_img img").attr('src',json.sliderPath + 'default-logo.svg');
     }
     // Changes the header element click event;
     if(counter > 0){
