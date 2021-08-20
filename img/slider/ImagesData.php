@@ -7,7 +7,6 @@ class ImagesData
     public $imgsData = [];
     public $imgDefaultUrl;
     public $imgBookUrl;
-    private $imgPath;
 
     function __construct()
     {
@@ -31,9 +30,7 @@ class ImagesData
 
     function getImgName($imgPath)
     {
-        $arr = explode("/", $imgPath);
-        $imgName = $arr[10];
-        return $imgName;
+        return basename($imgPath);
     }
     
     function getImgId($imgName){
@@ -75,13 +72,12 @@ class ImagesData
     {
         $i = 0;
         foreach ($this->getImgsList() as $path) {
-            $this->imgPath = $path;
-            $this->imgName = $this->getImgName($this->imgPath);
+            $this->imgName = $this->getImgName($path);
             $this->imgsData[$i]['imgName'] = $this->imgName;
             $this->imgsData[$i]['imgId'] = $this->getImgId($this->imgName);
-            $this->imgsData[$i]['imgRgb'] = $this->getImgRgb($this->imgPath);
-            $this->imgsData[$i]['imgRgbContrast'] = $this->getImgRgbContrast($this->getImgRgb($this->imgPath));
-            $this->imgsData[$i]['imgUrl'] = $this->getImgUrl($this->imgPath);
+            $this->imgsData[$i]['imgRgb'] = $this->getImgRgb($path);
+            $this->imgsData[$i]['imgRgbContrast'] = $this->getImgRgbContrast($this->getImgRgb($path));
+            $this->imgsData[$i]['imgUrl'] = $this->getImgUrl($path);
             $this->imgsData[$i]['imgDefaultUrl'] = $this->imgDefaultUrl;
             $this->imgsData[$i]['imgBookUrl'] = $this->imgBookUrl.$this->imgsData[$i]['imgId'];
             $i++;
