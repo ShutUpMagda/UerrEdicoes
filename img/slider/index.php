@@ -7,11 +7,14 @@ class ImagesData
     public $imgsData = [];
     public $sliderPath;
     public $imgBookUrl;
+    public $imgSeriesUrl;
+    public $imgObjUrl;
 
     function __construct()
     {
         $this->dir = getcwd();
-        $this->imgBookUrl = $this->getUrlAndProtocol() . '/index.php/inicio/catalog/book/';
+        $this->imgBookUrl = $this->getUrlAndProtocol() . '/index.php/inicio/catalog/book/';        
+        $this->imgSeriesUrl = $this->getUrlAndProtocol() . '/index.php/inicio/catalog/series/';
         $this->sliderPath = $this->getImgUrl(null);
     }
 
@@ -85,7 +88,7 @@ class ImagesData
             $this->imgsData[$i]['imgRgb'] = $this->getImgRgb($imgPath);
             $this->imgsData[$i]['imgRgbContrast'] = $this->getImgRgbContrast($this->getImgRgb($imgPath));
             $this->imgsData[$i]['imgUrl'] = $this->getImgUrl($imgPath);
-            $this->imgsData[$i]['imgBookUrl'] = $this->imgBookUrl.$this->imgId;
+            $this->imgsData[$i]['imgObjUrl'] = is_numeric($this->imgId) ? $this->imgBookUrl.$this->imgId : $this->imgSeriesUrl.$this->imgId;
             $i++;
         }
         $obj['sliderPath'] = $this->sliderPath;
