@@ -43,7 +43,7 @@ $(function () {
             // Restarting counter, if exceeds length;
             counter == json.imgs.length - 1 ? counter = 0 : counter++;
             setBanner(json, counter);
-        }, 3000);
+        }, 10000);
     });
 
     /**
